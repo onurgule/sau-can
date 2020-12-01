@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { View, Button, Text, StyleSheet } from "react-native";
+import { View, Button, StyleSheet } from "react-native";
+import { Container, Header, Content, List, ListItem, Text } from 'native-base';
 
 export default class MainScreen extends Component {
   static navigationOptions = {
@@ -8,19 +9,54 @@ export default class MainScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          coins: []
+          lectures: []
         };
       }
+      async componentDidMount(){
+        fetch("http://onurgule.com.tr/saucan/getLectures.php?semester=0").then(res => res.json()).then(ret => {
+          console.log(ret);
+          this.setState({lectures:ret});
+        })
+      }
+      goToLecture(lid,namem){
+        console.log(namem);
+        this.props.navigation.navigate("Notlar", {lid:lid, name:namem})
+      }
   render() {
+    var semester = 0;
     return (
 
-        <View style={styles.center}>
-        <Text>Dersler Listelenecek</Text>
-        <Button
-          title="Güncel Notları Listele"
-          onPress={() => this.props.navigation.navigate("Notlar")} // We added an onPress event which would navigate to the About screen
-        />
-      </View>
+      <Container>
+      <Content>
+          {
+            this.state.lectures.length > 0 &&
+            
+        <List>
+          {
+            this.state.lectures.map((lecture) => {
+              console.log(semester, lecture.Semester)
+              if(lecture.Semester != semester){
+                semester = lecture.Semester;
+                return [
+                <ListItem itemHeader>
+                  <Text>{lecture.Semester}. Yarı Yıl</Text>
+                </ListItem>,
+                <ListItem onPress={() => this.goToLecture(lecture.LID, lecture.Name)}>
+                  <Text>{lecture.Code} - {lecture.Name}</Text>
+                </ListItem>
+                ];
+              }
+              return(
+              <ListItem onPress={() => this.goToLecture(lecture.LID, lecture.Name)}>
+                <Text>{lecture.Code} - {lecture.Name}</Text>
+              </ListItem>
+              )
+            })
+          }
+        </List>
+      }
+      </Content>
+    </Container>
 
     );
   }

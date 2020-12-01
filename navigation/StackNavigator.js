@@ -20,7 +20,7 @@ const MainStackNavigator = () => {
         headerLeft: props => <Ionicons name='md-menu' size={25} />,
       })}
       />
-      <Stack.Screen name="Notlar" component={Notlar} />
+      <Stack.Screen name="Notlar" options={({ route }) => ({ title: route.params.name })} component={Notlar} />
     </Stack.Navigator>
   );
 };
