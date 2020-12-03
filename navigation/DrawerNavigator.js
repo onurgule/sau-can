@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import { createDrawerNavigator,DrawerContentScrollView, DrawerItemList, DrawerItem } from "@react-navigation/drawer";
-import { NotEkleStackNavigator } from "./StackNavigator";
+import { NotEkleStackNavigator, IstatistikStackNavigator, YapimcilarStackNavigator } from "./StackNavigator";
 import { Logout } from "../components/Logout";
 import TabNavigator from "./TabNavigator";
 const Drawer = createDrawerNavigator();
@@ -20,10 +20,12 @@ class DrawerNavigator extends Component {
     //this.props.cikis()
   }
   render() {
+    console.log(this);
     return (
       <Drawer.Navigator drawerContent={props => <CustomDrawerContent cikis={this.props.cikis} {...props} />}>
         <Drawer.Screen name="Dersler" component={TabNavigator} />
-        <Drawer.Screen name="NotEkle" component={NotEkleStackNavigator} />
+        <Drawer.Screen name="İstatistikler" component={IstatistikStackNavigator} />
+        <Drawer.Screen name="Yapımcılar" component={YapimcilarStackNavigator} />
       </Drawer.Navigator>
     );
   }

@@ -60,7 +60,7 @@ export default class Login extends Component {
                     <Item style={{display:(!this.state.codesent)?'none':'flex'}} floatingLabel last>
                     <Icon active name='log-in' />
                     <Label>Doğrulama Kodu</Label>
-                    <Input onChangeText={(val) => this.setState({code:val})} />
+                    <Input keyboardType="phone-pad" onChangeText={(val) => this.setState({code:val})} />
                     </Item>
                     <Spinner style={{display:'none'}} color='blue' />
                     <View style={{flex:1, alignSelf: 'center', marginTop:50}}>

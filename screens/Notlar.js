@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import { View, StyleSheet, } from "react-native";
-import { Container, Header, Content, List, ListItem, Text, Left, Right, Body } from 'native-base';
+import { Container, Header, Content, List, ListItem, Text, Left, Right, Body, Spinner } from 'native-base';
 export default class Notlar extends Component {
   static navigationOptions = {
     header: null,
@@ -8,7 +8,8 @@ export default class Notlar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          works: []
+          works: [],
+          worksLength:-1,
         };
       }
       async componentDidMount(){
@@ -16,7 +17,7 @@ export default class Notlar extends Component {
         console.log(this);
         fetch("http://onurgule.com.tr/saucan/getLectureWorks.php?lid="+this.props.route.params.lid).then(res => res.json()).then(ret => {
           console.log(ret);
-          this.setState({works:ret});
+          this.setState({works:ret, worksLength:ret.length});
         })
       }
       render() {
@@ -24,15 +25,19 @@ export default class Notlar extends Component {
         return (
           <Container>
       <Content>
+        {
+          this.state.works.length == 0 && this.state.worksLength == -1 &&
+          <Spinner color='blue' />
+        }
           {
             this.state.works.length > 0 &&
             
         <List>
           {
-            this.state.works.map((work) => {
+            this.state.works.map((work, ind) => {
               
               return(
-              <ListItem onPress={() => this.goToLecture(lecture.LID)}>
+              <ListItem key={work.WID} onPress={() => console.log(work.WID)}>
                 
                 
                 <Left>
@@ -50,6 +55,10 @@ export default class Notlar extends Component {
             })
           }
         </List>
+      }
+      {
+        this.state.worksLength == 0 &&
+        <Text style={{margin:30}}>Şu anda yalnızca 7. yarıyıl derslerinin bazılarında desteğimiz mevcuttur. {"\n"}Ayrıntılara İstatistikler bölümünden erişebilirsiniz. </Text>
       }
       </Content>
     </Container>

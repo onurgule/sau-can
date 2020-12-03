@@ -1,4 +1,5 @@
 import React from 'react';
+import { Root } from "native-base";
 import { AppLoading, View } from 'expo';
 import { Container, Text, Icon } from 'native-base';
 import * as Font from 'expo-font';
@@ -65,9 +66,11 @@ export default class App extends React.Component {
     }
 
     return (
+      <Root>
       <NavigationContainer>
-      <DrawerNavigator cikis={this.cikis} />
+      <DrawerNavigator sauid={this.state.sauid} cikis={this.cikis} />
       </NavigationContainer>
+      </Root>
     );
   }
 }
