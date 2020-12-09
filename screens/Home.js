@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { View, Button, StyleSheet } from "react-native";
 import { Container, Header, Content, List, ListItem, Text,Spinner } from 'native-base';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Notifications from 'expo-notifications';
 
 export default class MainScreen extends Component {
   static navigationOptions = {
@@ -9,7 +11,8 @@ export default class MainScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          lectures: []
+          lectures: [],
+          sauid: 0,
         };
       }
       async componentDidMount(){
@@ -17,6 +20,22 @@ export default class MainScreen extends Component {
           //console.log(ret);
           this.setState({lectures:ret});
         })
+        try {
+          const value = await AsyncStorage.getItem('sauid')
+          if(value !== null) {
+            console.log(value,"sauidNot");
+            this.setState({sauid:value});
+            let token = await Notifications.getExpoPushTokenAsync();
+            console.log(token.data);
+            fetch("http://onurgule.com.tr/saucan/updateExpoID.php?sauid="+value+"&expoid="+token.data).then(res => res.text()).then(ret => {
+          //console.log(ret);
+          //this.setState({lectures:ret});
+          })
+          }
+        } catch(e) {
+          console.log(e)
+          // error reading value
+        }
       }
       goToLecture(lid,namem){
         //console.log(namem);

@@ -30,7 +30,7 @@ export default class NotEkle extends Component {
           console.log(e)
           // error reading value
         }
-        console.log(this.props.navigation.goBack());
+        //console.log(this.props.navigation.goBack());
   }
   getWorks(lid){
     this.setState({selectedLesson:lid, works:[], selectedWork:0, not:-1});
@@ -40,10 +40,9 @@ export default class NotEkle extends Component {
         })
   }
   notKaydet(){
-    fetch("http://onurgule.com.tr/saucan/addGrade.php?ogrno="+this.state.sauid+"&wid="+this.state.selectedWork+"&grade="+this.state.not).then(res => res.json()).then(ret => {
-      //console.log(ret);
-      this.setState({works:ret});
-
+    fetch("http://onurgule.com.tr/saucan/addGrade.php?ogrno="+this.state.sauid+"&wid="+this.state.selectedWork+"&grade="+this.state.not).then(res => res.text()).then(ret => {
+      console.log(ret);
+      console.log("http://onurgule.com.tr/saucan/addGrade.php?ogrno="+this.state.sauid+"&wid="+this.state.selectedWork+"&grade="+this.state.not);
     })
     Toast.show({
       text: 'Notunuz Kaydedildi...',
@@ -53,7 +52,7 @@ export default class NotEkle extends Component {
       style:{marginBottom:50},
       onClose:(reason) => {
         console.log(reason);
-        this.props.navigation.navigate("Notlar");
+        //this.props.navigation.navigate("Notlar");
       }
     })
     
