@@ -24,7 +24,7 @@ export default class IstatistikScreen extends Component {
             <CardItem bordered>
               <Body>
                 <Text>
-                  Şu anda yalnızca almakta olduğumuz 7. yarıyıl derslerin desteği mevcuttur. 
+                  Şu anda yalnızca almakta olduğumuz 7. yarıyıl derslerinin desteği mevcuttur. 
                 </Text>
               </Body>
             </CardItem>
