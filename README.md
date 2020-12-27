@@ -7,6 +7,8 @@ Yalnızca Sakarya Üniversitesi öğrencilerinin giriş yapabildiği SAU ÇAN uy
 
 Backend tarafında PHP, MySQL kullanılacak, uygulama arayüzü React Native / Expo ile yazılacaktır.
 
+<a href="https://www.youtube.com/watch?v=Cl0dXnal-Hg">Video Linkimiz: https://www.youtube.com/watch?v=Cl0dXnal-Hg</a>
+
 ### Proje Grubu:
 
 G171210021 - Onur Osman GÜLE
